@@ -1,7 +1,8 @@
-import { activityLog } from '../data/mock.js'
+import { useApp } from '../store.jsx'
 import { PageHead } from '../components/ui.jsx'
 
 export default function Logs() {
+  const { activityLog } = useApp()
   return (
     <>
       <PageHead title="Nhật ký hoạt động" desc="Lịch sử đăng nhập và thao tác quan trọng để kiểm soát an toàn hệ thống." />

@@ -700,3 +700,5 @@ a.card:hover, .grid.c4 > a.card:hover, .grid.c4 > .card:hover { transform: none;
   .points-chip { white-space: nowrap; padding: 4px 10px; }
 }
 @media (pointer: coarse) { .btn { min-height: 44px; } }
+
+.boot { min-height: 100vh; display: grid; place-items: center; color: var(--muted); font-weight: 500; }

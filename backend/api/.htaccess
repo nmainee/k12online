@@ -1,0 +1,4 @@
+# Không cho tải trực tiếp tệp cấu hình.
+<FilesMatch "^config.*\.php$">
+  Require all denied
+</FilesMatch>

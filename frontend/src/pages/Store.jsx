@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useApp, formatDate } from '../store.jsx'
 import { Empty, Modal, PageHead, Tabs } from '../components/ui.jsx'
 import { Confetti, GiftArt } from '../components/art.jsx'
+import { UNLIMITED } from '../api.js'
 
 export default function Store() {
   const { me, gifts, setGifts, redeems, setRedeems, setUsers, userById, newId, notify } = useApp()
@@ -15,7 +16,7 @@ export default function Store() {
   const redeem = () => {
     const total = pick.points * qty
     setUsers((all) => all.map((u) => (u.id === me.id ? { ...u, points: u.points - total } : u)))
-    setGifts((all) => all.map((g) => (g.id === pick.id ? { ...g, stock: g.stock - qty } : g)))
+    setGifts((all) => all.map((g) => (g.id === pick.id ? { ...g, stock: g.stock >= UNLIMITED ? g.stock : g.stock - qty } : g)))
     setRedeems((all) => [{ id: newId(), user_id: me.id, gift_id: pick.id, quantity: qty, points: total, date: '2026-11-16' }, ...all])
     notify(`Đã đổi “${pick.name}”. Còn ${me.points - total} điểm`)
     setPick(null); setQty(1); setParty(true)
@@ -34,7 +35,7 @@ export default function Store() {
     <>
       <PageHead banner="warm" art="store" title="Store" desc="Đổi điểm thưởng tích lũy từ review OKR, feedback và ghi nhận lấy quà của công ty.">
         {!admin && <span className="points-chip" style={{ fontSize: 16 }}>Bạn có {me.points} điểm</span>}
-        {admin && <button className="btn primary" onClick={() => setEditing({ name: '', points: 50, stock: 10, description: '' })}>Thêm quà tặng</button>}
+        {admin && <button className="btn primary" onClick={() => setEditing({ name: '', points: 50, stock: UNLIMITED, description: '' })}>Thêm quà tặng</button>}
       </PageHead>
       <Tabs tabs={[['shop', 'Quà tặng'], ['history', admin ? 'Lịch sử đổi quà' : 'Lịch sử của tôi']]} value={tab} onChange={setTab} />
 
@@ -49,7 +50,7 @@ export default function Store() {
                 <p className="muted small" style={{ flex: 1 }}>{g.description}</p>
                 <div className="row between">
                   <span className="gift-price">{g.points} điểm</span>
-                  <span className="muted small">{g.stock > 0 ? `Còn ${g.stock}` : 'Hết hàng'}</span>
+                  <span className="muted small">{g.stock >= UNLIMITED ? 'Còn hàng' : g.stock > 0 ? `Còn ${g.stock}` : 'Hết hàng'}</span>
                 </div>
                 {admin ? (
                   <button className="btn" onClick={() => setEditing({ ...g })}>Chỉnh sửa</button>
@@ -112,7 +113,7 @@ export default function Store() {
             <label className="field">Tên quà tặng<input type="text" value={editing.name} onChange={(e) => setEditing({ ...editing, name: e.target.value })} /></label>
             <div className="form-grid">
               <label className="field">Điểm đổi<input type="number" min="1" value={editing.points} onChange={(e) => setEditing({ ...editing, points: Number(e.target.value) })} /></label>
-              <label className="field">Số lượng trong kho<input type="number" min="0" value={editing.stock} onChange={(e) => setEditing({ ...editing, stock: Number(e.target.value) })} /></label>
+              {editing.stock < UNLIMITED && <label className="field">Số lượng trong kho<input type="number" min="0" value={editing.stock} onChange={(e) => setEditing({ ...editing, stock: Number(e.target.value) })} /></label>}
             </div>
             <label className="field">Mô tả<textarea value={editing.description} onChange={(e) => setEditing({ ...editing, description: e.target.value })} /></label>
           </div>

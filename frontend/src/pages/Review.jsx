@@ -91,7 +91,7 @@ export default function Review() {
             const owner = userById(o.owner)
             return (
               <article className="card row" key={r.id} style={{ alignItems: 'flex-start', gap: 16 }}>
-                <span className="score">{r.score}</span>
+                <span className="score">{r.score ?? '–'}</span>
                 <div>
                   <b>{owner.fullname}</b> <span className="muted">· {r.summary}</span>
                   <div style={{ marginTop: 4 }}>{o.objective}</div>

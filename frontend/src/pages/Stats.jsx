@@ -17,7 +17,7 @@ export function useStatRows() {
     return { id: u.id, name: u.fullname, department_id: u.department_id, count: l.length, pct: done.length ? Math.round(done.reduce((s, o) => s + okrPercent(o), 0) / done.length) : 0 }
   })
   const points = users.filter((u) => u.role !== 'director').map((u) => {
-    const review = reviews.filter((r) => okrs.find((o) => o.id === r.okr_id)?.owner === u.id).reduce((s, r) => s + r.score, 0)
+    const review = reviews.filter((r) => okrs.find((o) => o.id === r.okr_id)?.owner === u.id).reduce((s, r) => s + (r.score || 0), 0)
     const fb = feedbacks.filter((f) => f.receiver === u.id).reduce((s, f) => s + f.points, 0)
     const rc = recognitions.filter((r) => r.receiver === u.id).reduce((s, r) => s + r.points, 0)
     return { id: u.id, name: u.fullname, department_id: u.department_id, review, fb, rc, total: u.points }

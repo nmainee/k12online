@@ -1,22 +1,26 @@
 import { useState } from 'react'
 import { useApp } from '../store.jsx'
-import { ROLES } from '../data/mock.js'
+import { ROLES, users as demoUsers } from '../data/mock.js'
 import { Avatar } from '../components/ui.jsx'
 import { LoginBackdrop, Mascot } from '../components/art.jsx'
 
 export default function Login() {
-  const { users, login } = useApp()
+  const { signIn, online } = useApp()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [busy, setBusy] = useState(false)
 
+  const enter = async (name, pass) => {
+    setBusy(true); setError('')
+    const res = await signIn(name.trim(), pass)
+    setBusy(false)
+    if (!res.ok) setError(res.error)
+  }
   const submit = (e) => {
     e.preventDefault()
     if (!username.trim() || !password) return setError('Nhập tên đăng nhập và mật khẩu để tiếp tục.')
-    const u = users.find((x) => x.username === username.trim())
-    if (!u || password.length < 4) return setError('Tên đăng nhập hoặc mật khẩu chưa đúng. Kiểm tra lại hoặc liên hệ giám đốc để được cấp tài khoản.')
-    if (!u.active) return setError('Tài khoản này đang bị khóa. Liên hệ giám đốc để mở lại.')
-    login(u.id)
+    enter(username, password)
   }
 
   return (
@@ -49,14 +53,14 @@ export default function Login() {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" />
             </label>
             {error && <p className="error-text" role="alert">{error}</p>}
-            <button className="btn primary" type="submit">Đăng nhập</button>
+            <button className="btn primary" type="submit" disabled={busy}>{busy ? 'Đang đăng nhập…' : 'Đăng nhập'}</button>
           </form>
 
           <div style={{ marginTop: 28 }}>
             <p className="muted small">Xem thử giao diện theo vai trò:</p>
             <div className="demo-users">
-              {users.filter((u) => u.active && [1, 2, 3].includes(u.id)).map((u) => (
-                <button key={u.id} className="demo-user" onClick={() => login(u.id)}>
+              {demoUsers.filter((u) => [1, 2, 3].includes(u.id)).map((u) => (
+                <button key={u.id} className="demo-user" disabled={busy} onClick={() => enter(u.username, online === false ? 'demo1234' : '123456')}>
                   <Avatar user={u} />
                   <span>
                     <div style={{ fontWeight: 600 }}>{u.fullname}</div>
@@ -67,7 +71,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-        <p className="login-note">Bản giao diện mẫu, dữ liệu minh họa.</p>
+        <p className="login-note">{online === false ? 'Chưa nối CSDL: đang dùng dữ liệu minh họa.' : 'Đã nối CSDL okr. Mật khẩu mẫu: 123456.'}</p>
       </section>
     </div>
   )
