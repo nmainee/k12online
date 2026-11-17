@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 // Hình minh họa vẽ bằng SVG: linh vật "Tiêu" (bia mục tiêu có khuôn mặt), cảnh leo núi OKR, quà tặng, huy hiệu.
 
 const C = {
-  teal: '#0f5c57', tealMid: '#2a8f87', tealSoft: '#bfe3de', mint: '#e3f4f1',
+  teal: '#2f6bff', tealMid: '#7ea6ff', tealSoft: '#d6e4ff', mint: '#eaf1ff',
   sun: '#f7b538', sunSoft: '#fde9b8', coral: '#f2705a', coralSoft: '#fbd5cd',
-  sky: '#4ea8de', skySoft: '#d4eafa', lilac: '#8e7dbe', lilacSoft: '#e4def2', ink: '#12201e',
+  sky: '#4ea8de', skySoft: '#d4eafa', lilac: '#8e7dbe', lilacSoft: '#e4def2', ink: '#14213d',
 }
 export const palette = C
 
@@ -63,7 +63,7 @@ export function ClimbScene({ step = 1, style }) {
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#fdeec6" />
-          <stop offset="1" stopColor="#e3f4f1" />
+          <stop offset="1" stopColor="#eaf1ff" />
         </linearGradient>
       </defs>
       <rect width="420" height="220" rx="18" fill="url(#sky)" />
@@ -234,9 +234,9 @@ export function LoginBackdrop() {
     <svg className="login-backdrop" viewBox="0 0 900 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <defs>
         <linearGradient id="lb-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#0a2a28" />
-          <stop offset=".45" stopColor="#0f5c57" />
-          <stop offset=".78" stopColor="#4aa398" />
+          <stop offset="0" stopColor="#14213d" />
+          <stop offset=".45" stopColor="#2f6bff" />
+          <stop offset=".78" stopColor="#a3c0ff" />
           <stop offset="1" stopColor="#f7d99a" />
         </linearGradient>
         <radialGradient id="lb-sun" cx=".5" cy=".5" r=".5">
@@ -251,18 +251,18 @@ export function LoginBackdrop() {
         <ellipse cx="190" cy="520" rx="110" ry="20" /><ellipse cx="250" cy="500" rx="70" ry="18" />
         <ellipse cx="760" cy="430" rx="100" ry="16" /><ellipse cx="820" cy="414" rx="56" ry="14" />
       </g>
-      <path d="M0 700L140 560L240 650L400 470L520 620L650 520L780 640L900 560V900H0z" fill="#2a8f87" opacity=".55" />
-      <path d="M0 760L120 650L260 740L430 580L580 730L720 640L900 740V900H0z" fill="#1d7a72" opacity=".85" />
+      <path d="M0 700L140 560L240 650L400 470L520 620L650 520L780 640L900 560V900H0z" fill="#7ea6ff" opacity=".55" />
+      <path d="M0 760L120 650L260 740L430 580L580 730L720 640L900 740V900H0z" fill="#5a8cff" opacity=".85" />
       <circle cx="660" cy="610" r="230" fill="url(#lb-sun)" />
       <circle cx="660" cy="610" r="62" fill="#fde9b8" />
-      <path d="M0 830Q150 770 300 810T620 800T900 780V900H0z" fill="#0f5c57" />
-      <path d="M0 880Q200 830 420 860T900 840V900H0z" fill="#0a403c" />
+      <path d="M0 830Q150 770 300 810T620 800T900 780V900H0z" fill="#2f6bff" />
+      <path d="M0 880Q200 830 420 860T900 840V900H0z" fill="#1b46c9" />
       {/* đường mòn và cột mốc */}
       <path d="M120 880Q260 820 340 800T560 740T700 668" stroke="#fde9b8" strokeWidth="6" strokeDasharray="2 14" strokeLinecap="round" fill="none" />
       {[[210, 846], [340, 800], [470, 762], [590, 725]].map(([x, y], i) => (
-        <g key={i}><circle cx={x} cy={y} r="15" fill="#fff" stroke="#f7b538" strokeWidth="4" /><text x={x} y={y + 5} textAnchor="middle" fontSize="14" fontWeight="700" fill="#0f5c57" fontFamily="Be Vietnam Pro, sans-serif">{i + 1}</text></g>
+        <g key={i}><circle cx={x} cy={y} r="15" fill="#fff" stroke="#f7b538" strokeWidth="4" /><text x={x} y={y + 5} textAnchor="middle" fontSize="14" fontWeight="700" fill="#2f6bff" fontFamily="Be Vietnam Pro, sans-serif">{i + 1}</text></g>
       ))}
-      <path d="M700 668V588" stroke="#12201e" strokeWidth="4" strokeLinecap="round" />
+      <path d="M700 668V588" stroke="#14213d" strokeWidth="4" strokeLinecap="round" />
       <path d="M700 588l44 13-44 13z" fill="#f2705a" />
       <g transform="translate(112 770)"><Mascot size={92} mood="cheer" /></g>
     </svg>

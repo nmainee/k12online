@@ -38,7 +38,7 @@ export function Badge({ kind, value }) {
   return <span className={`badge ${s.tone}`}>{s.label}</span>
 }
 
-const AV_COLORS = ['#0f5c57', '#2c5a9b', '#8a4b9a', '#b0612d', '#4f7a2b', '#a13b5c']
+const AV_COLORS = ['#2f6bff', '#ff6fa5', '#1fb28a', '#f59e0b', '#2f6bff', '#a855f7']
 export function Avatar({ user, size }) {
   if (!user) return null
   if (user.avatar) return <img className={`avatar ${size || ''}`} src={user.avatar} alt={user.fullname} style={{ objectFit: 'cover' }} />
@@ -66,7 +66,7 @@ export function Ring({ value, size = 96, stroke = 9 }) {
   return (
     <span className="ring" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={`${value}%`}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e3e9e6" strokeWidth={stroke} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e8eefb" strokeWidth={stroke} />
         <circle
           cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--primary)" strokeWidth={stroke}
           strokeLinecap="round" strokeDasharray={`${(c * value) / 100} ${c}`} transform={`rotate(-90 ${size / 2} ${size / 2})`}
@@ -185,7 +185,7 @@ export function TrendChart({ data }) {
         {[0, 25, 50, 75, 100].map((g) => (
           <g key={g}>
             <line x1={PL} x2={W - PR} y1={y(g)} y2={y(g)} stroke="#e1e7e4" strokeDasharray={g === 0 ? undefined : '3 4'} />
-            <text x={PL - 8} y={y(g) + 4} fontSize="12" textAnchor="end" fill="#566763">{g}</text>
+            <text x={PL - 8} y={y(g) + 4} fontSize="12" textAnchor="end" fill="#5d6479">{g}</text>
           </g>
         ))}
         <polygon points={area} fill="url(#trendFill)" />
@@ -193,8 +193,8 @@ export function TrendChart({ data }) {
         {data.map((d, i) => (
           <g key={d.week}>
             <circle cx={x(i)} cy={y(d.value)} r={i === data.length - 1 ? 7 : 5} fill={i === data.length - 1 ? 'var(--primary)' : '#fff'} stroke="var(--primary)" strokeWidth="3" />
-            <text x={x(i)} y={y(d.value) - 14} fontSize="13" fontWeight="700" textAnchor="middle" fill="#12201e">{d.value}</text>
-            <text x={x(i)} y={H - 10} fontSize="12" textAnchor="middle" fill="#566763">{d.week}</text>
+            <text x={x(i)} y={y(d.value) - 14} fontSize="13" fontWeight="700" textAnchor="middle" fill="#14213d">{d.value}</text>
+            <text x={x(i)} y={H - 10} fontSize="12" textAnchor="middle" fill="#5d6479">{d.week}</text>
           </g>
         ))}
       </svg>
